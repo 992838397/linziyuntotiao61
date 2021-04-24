@@ -37,6 +37,11 @@ const router = new VueRouter({
             name: 'edit_profile',
             path: '/edit_profile/:id',
             component: () => import('@/views/user/edit_profile.vue')
+        },
+        {
+            name: 'postDetail',
+            path: '/postDetail/:id',
+            component: () => import('@/views/post/postDetail.vue')
         }
 
 
@@ -62,8 +67,5 @@ router.beforeEach((to, from, next) => {
     }
 
 })
-
-
-
 // 3.暴露
 export default router

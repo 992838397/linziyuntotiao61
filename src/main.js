@@ -9,7 +9,7 @@ import router from '@/router/index'
 
 
 // 引入vant插件
-import { toast, Icon, Uploader, Dialog, Field, ActionSheet, Tab, Tabs } from 'vant'
+import { toast, Icon, Uploader, Dialog, Field, ActionSheet, Tab, Tabs, List, PullRefresh } from 'vant'
 Vue.use(toast)
   .use(Icon)
   .use(Uploader)
@@ -18,6 +18,8 @@ Vue.use(toast)
   .use(ActionSheet)
   .use(Tab)
   .use(Tabs)
+  .use(List)
+  .use(PullRefresh)
 
 Vue.config.productionTip = false
 
