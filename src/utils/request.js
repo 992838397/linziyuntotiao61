@@ -24,7 +24,12 @@ axios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     if (response.data.message == '用户信息验证失败!' || response.data.message == '用户信息验证失败') {
         Toast.fail("用户信息验证失败")
-        window.location.href = '#/login'
+        // 页面回跳：
+        // 如果用户是在关注的时候发生用户信息验证失败,跳回登入页面,登入成功后应该跳回关注页面,而不是个人中心
+        // 以下实现页面跳转
+        console.log("当前页面地址:", window.location.href);
+        // 传递跳转前地址,登入成功后跳转回去
+        window.location.href = '#/login?redirect_url=' + window.location.href
     }
     return response;
 }, function (error) {

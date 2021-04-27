@@ -51,3 +51,22 @@ export const upfollowUser = id => {
         url: `/user_unfollow/${id}`
     })
 }
+// 用户关注列表
+export const getUserfollow = () => {
+    return axios({
+        url: '/user_follows'
+    })
+}
+// 用户点击收藏数据
+export const getUserStars = () => {
+    return axios({
+        url: `/user_star`
+
+    })
+}
+// 文章评论列表
+export const getUsercomment = (id) => {
+    return axios({
+        url: '/post_comment/' + id
+    })
+}

@@ -3,6 +3,9 @@
 
 import axios from '@/utils/request.js'
 
+
+
+// 头像上传
 export const uploadFile = (data) => {
 
     return axios({

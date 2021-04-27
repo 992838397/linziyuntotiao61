@@ -18,11 +18,18 @@
         </div>
         <span class="iconfont iconjiantou1"></span>
       </div>
-      np,
     </router-link>
-    <gz_celi title="我的关注" msg="关注的用户"></gz_celi>
+    <gz_celi
+      title="我的关注"
+      msg="关注的用户"
+      @click.native="myfollow"
+    ></gz_celi>
     <gz_celi title="我的跟帖" msg="跟帖/回复"></gz_celi>
-    <gz_celi title="我的收藏" msg="文章/视频"></gz_celi>
+    <gz_celi
+      title="我的收藏"
+      msg="文章/视频"
+      @click.native="$router.push({ name: 'mystar' })"
+    ></gz_celi>
     <gz_celi title="设置"></gz_celi>
     <gz_buttom type="danger" style="margin-top: 20px">退出</gz_buttom>
   </div>
@@ -59,6 +66,11 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+  },
+  methods: {
+    myfollow() {
+      this.$router.push({ name: "myfollow" });
+    },
   },
 };
 </script>

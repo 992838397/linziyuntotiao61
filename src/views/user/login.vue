@@ -55,12 +55,24 @@ export default {
         userLogin(this.user)
           .then((res) => {
             if (res.data.message == "登录成功") {
-              console.log(res.data.data.user.id);
               // 存储token,到个人中心验证是否存在
               localStorage.setItem("heimatotiao_token", res.data.data.token);
-              // 实现路由跳转  传递具体用户信息,用户ID
-              this.$router.push({ path: `/personal/${res.data.data.user.id}` });
-              // console.log(res);
+              // console.log("这是", res.data.data.user.id);
+              localStorage.setItem("heimatotiao_userid", res.data.data.user.id);
+
+              //这里需要判断一下是否有值,如果有的话就进行跳转,没有就正常跳转的个人中心
+              console.log("这是logo的地址", location.href);
+              let redirect = location.href.split("=")[1];
+              console.log("这是redirect", redirect);
+              if (redirect) {
+                // decodeURIComponent是解码,
+                location.href = decodeURIComponent(redirect);
+              } else {
+                // 实现路由跳转  传递具体用户信息,用户ID
+                this.$router.push({
+                  path: `/personal/${res.data.data.user.id}`,
+                });
+              }
             } else {
               this.$toast.fail("登录失败");
             }

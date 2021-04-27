@@ -9,7 +9,7 @@
         <span>搜索商品</span>
       </div>
       <div class="user">
-        <van-icon name="manager-o" />
+        <van-icon name="manager-o" @click="juom" />
       </div>
     </div>
     <van-tabs v-model="active" sticky swipeable @change="getactive">
@@ -90,6 +90,17 @@ export default {
   },
 
   methods: {
+    // 点击个人中心图标跳转
+
+    juom() {
+      let id = localStorage.getItem("heimatotiao_userid");
+      if (id) {
+        this.$router.push({ path: `/personal/${id}` });
+      } else {
+        this.$router.push({ name: "login" });
+        this.$toast.fail("未登录,请去登录");
+      }
+    },
     // 1.上拉加载下一页
     onLoad() {
       // 1.1 页码+1，

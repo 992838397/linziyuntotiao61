@@ -12,14 +12,16 @@
     <div class="detail">
       <div class="title">{{ post.title }}</div>
       <div class="desc">
-        <span>{{ post.nickname }}</span> &nbsp;&nbsp;
+        <span>aaaaa</span> &nbsp;&nbsp;
         <span>2019-9-9</span>
       </div>
       <div class="content" v-html="post.content" v-if="post.type == 1"></div>
-      <video :src="post.content" controls></video>
+      <video :src="post.content" controls v-else></video>
 
       <div class="opt">
-        <span class="like"> <van-icon name="good-job-o" />点赞 </span>
+        <span class="like" :class="{ active: post.has_like }">
+          <van-icon name="good-job-o" @click="postGoodByid" />点赞
+        </span>
         <span class="chat"> <van-icon name="chat" class="w" />微信 </span>
       </div>
     </div>
@@ -39,13 +41,19 @@
       </div>
       <div class="more">更多跟帖</div>
     </div>
+
+    <!--footer -->
+    <commentFooter :post="post"></commentFooter>
   </div>
 </template>
-
 <script>
-import { geteditList } from "@/apis/post";
+import { geteditList, getGood } from "@/apis/post";
 import { followUser, upfollowUser } from "@/apis/user";
+import commentFooter from "@/components/gz_commentFooter";
 export default {
+  components: {
+    commentFooter,
+  },
   data() {
     return {
       post: {
@@ -57,7 +65,8 @@ export default {
     let id = this.$route.params.id;
     let res = await geteditList(id);
     this.post = res.data.data;
-    console.log("这是", this.post.has_follow);
+    // console.log("这是", this.post.has_follow);
+    console.log(this.post);
   },
   methods: {
     async followUserByid() {
@@ -71,6 +80,18 @@ export default {
       }
       console.log(res);
       this.post.has_follow = !this.post.has_follow;
+    },
+    async postGoodByid() {
+      let id = this.$route.params.id;
+      let res = await getGood(id);
+      if (res.data.message == "点赞成功") {
+        // 点赞是有数据的,因此要+1或者-1
+        ++this.post.like_length;
+      } else {
+        --this.post.like_length;
+      }
+      // 取反
+      this.post.has_like = !this.post.has_like;
     },
   },
 };
@@ -152,6 +173,9 @@ export default {
     text-align: center;
     border: 1px solid #ccc;
     border-radius: 15px;
+  }
+  .active {
+    color: red;
   }
   .w {
     color: rgb(84, 163, 5);

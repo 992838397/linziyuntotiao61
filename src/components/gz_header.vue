@@ -5,7 +5,7 @@
     </div>
     <div class="content">{{ title }}</div>
     <div class="right">
-      <slot name="right">bb</slot>
+      <slot name="right"></slot>
     </div>
   </div>
 </template>
